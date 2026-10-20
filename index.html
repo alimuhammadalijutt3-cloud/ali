@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06100c">
+<title>ALI | WhatsApp Appeal Center</title>
+
+<style>
+:root {
+  --green: #00ff91;
+  --bg: #050b08;
+  --panel: #0b1711;
+  --muted: #9bb7a6;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 22px 14px 35px;
+  background:
+    radial-gradient(ellipse at top, #103522 0%, transparent 48%),
+    var(--bg);
+  color: #e9fff2;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.container { max-width: 720px; margin: auto; }
+
+.profile {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--green);
+  box-shadow: 0 0 24px #00ff9160;
+  background: var(--panel);
+}
+
+h1 {
+  color: var(--green);
+  letter-spacing: 5px;
+  margin: 16px 0 7px;
+  text-shadow: 0 0 15px #00ff9140;
+}
+
+.subtitle { color: var(--muted); font-size: 13px; }
+
+.clock {
+  display: inline-block;
+  margin: 15px 0 20px;
+  padding: 12px 22px;
+  border: 1px solid #176c42;
+  border-radius: 12px;
+  background: #07140d;
+  color: var(--green);
+  line-height: 1.8;
+  min-width: 230px;
+}
+
+.panel {
+  background: #09130eeb;
+  border: 1px solid #17452d;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 14px 0;
+  text-align: left;
+}
+
+h2 {
+  color: var(--green);
+  font-size: 17px;
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  color: #c2ddce;
+  font-size: 13px;
+  margin: 12px 0 7px;
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  color: white;
+  background: #030906;
+  border: 1px solid #286343;
+  border-radius: 9px;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus { border-color: var(--green); }
+
+.note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #187347;
+  border-radius: 9px;
+  padding: 13px 8px;
+  background: linear-gradient(135deg, #102b1c, #07130c);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: bold;
+  min-height: 58px;
+  overflow-wrap: anywhere;
+  transition: .2s;
+}
+
+button:active {
+  transform: scale(.98);
+  background: #174a30;
+}
+
+button:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 12px #00ff9125;
+}
+
+.primary {
+  width: 100%;
+  margin-top: 12px;
+  background: #00e783;
+  color: #041109;
+  font-size: 14px;
+  min-height: 48px;
+}
+
+footer {
+  color: #8ba797;
+  font-size: 12px;
+  padding: 18px 0;
+}
+
+@media (max-width: 380px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header>
+    <!-- Replace IMAGE_URL with the direct image URL from your image host -->
+    <img
+      class="profile"
+      id="profileImage"
+      src="https://files.catbox.moe/53180b.jpg"
+      alt="ALI profile image"
+    >
+    <h1>ALI</h1>
+    <div class="subtitle">WHATSAPP ACCOUNT APPEAL CENTER</div>
+
+    <div class="clock">
+      <div id="time">Loading time...</div>
+      <div id="date">Loading date...</div>
+      <small>PAKISTAN STANDARD TIME</small>
+    </div>
+  </header>
+
+  <section class="panel">
+    <h2>01 / ACCOUNT DETAILS</h2>
+
+    <label for="phone">WhatsApp Number (with country code)</label>
+    <input
+      id="phone"
+      type="tel"
+      placeholder="+923001234567"
+      autocomplete="tel"
+    >
+
+    <p class="note">
+      Enter the number of the account you own. Include your country
+      code, for example +92 for Pakistan.
+    </p>
+
+    <label for="reason">Appeal category</label>
+    <select id="reason">
+      <option value="banned">Account banned</option>
+      <option value="disabled">Account disabled</option>
+      <option value="mistake">Possible mistaken restriction</option>
+      <option value="review">Request for account review</option>
+    </select>
+  </section>
+
+  <section class="panel">
+    <h2>02 / SELECT AN APPEAL</h2>
+    <p class="note">
+      Choose one of the 20 English templates. Gmail will open with
+      the selected message and your number filled in.
+      Review the message before sending.
+    </p>
+    <div class="grid" id="appealButtons"></div>
+  </section>
+
+  <section class="panel">
+    <h2>03 / CUSTOM EMAIL PREVIEW</h2>
+
+    <label for="subject">Email subject</label>
+    <input id="subject" value="Request for WhatsApp Account Review">
+
+    <label for="message">Appeal message</label>
+    <textarea id="message"
+      rows="9"
+      style="width:100%;padding:13px;background:#030906;color:#e9fff2;border:1px solid #286343;border-radius:9px;font:14px/1.6 Arial;resize:vertical;"
+      placeholder="Select an appeal button above..."></textarea>
+
+    <button class="primary" id="openGmail">
+      OPEN GMAIL WITH THIS APPEAL ↗
+    </button>
+
+    <p class="note">
+      Gmail will open a draft. You must review it and press Send
+      yourself. This website cannot guarantee an unban or force
+      WhatsApp to take immediate action.
+    </p>
+  </section>
+
+  <footer>
+    Created with care by ALI<br>
+    Official account review requests only
+  </footer>
+</div>
+
+<script>
+const SUPPORT_EMAIL = "support@support.whatsapp.com";
+
+const appeals = [
+{
+title: "01 · Account Review",
+subject: "Request for WhatsApp Account Review",
+body: `Dear WhatsApp Support Team,
+
+I respectfully request a review of my WhatsApp account associated with the number [NUMBER].
+
+I am currently unable to use my account and would appreciate clarification regarding its restriction. If this restriction was applied in error, please review my account and restore access if it is eligible.
+
+I am willing to comply with WhatsApp's Terms of Service and correct any issue identified.
+
+Thank you for your time and assistance.
+
+Kind regards,
+ALI
+WhatsApp number: [NUMBER]`
+},
+{
+title: "02 · Possible Mistake",
+subject: "Appeal Against Possible Mistaken Restriction",
+body: `Dear WhatsApp Support Team,
+
+I believe my account associated with [NUMBER] may have been restricted by mistake.
+
+Please conduct a fresh review of my account and its status. If the restriction was made in error, I kindly request that access be restored.
+
+I respect WhatsApp's policies and will follow the applicable terms.
+
+Thank you for considering my appeal.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "03 · Disabled Account",
+subject: "Request to Review Disabled WhatsApp Account",
+body: `Dear WhatsApp Support Team,
+
+My WhatsApp account, registered to [NUMBER], appears to be disabled.
+
+I respectfully request an explanation of the restriction and a review of my account. If it is eligible for restoration, please guide me through the appropriate recovery process.
+
+Thank you for your support.
+
+Kind regards,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "04 · Urgent Review",
+subject: "Request for Prompt WhatsApp Account Review",
+body: `Dear WhatsApp Support Team,
+
+I kindly request a prompt review of the restriction on my WhatsApp account registered to [NUMBER].
+
+I rely on this account for personal communication and would appreciate your assistance in understanding and resolving this issue.
+
+If the restriction was applied in error, please restore my access if possible.
+
+Thank you for your consideration.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "05 · Personal Account",
+subject: "Appeal for Restoration of Personal WhatsApp Account",
+body: `Dear WhatsApp Support Team,
+
+I am requesting a review of my personal WhatsApp account associated with [NUMBER].
+
+I would appreciate it if your team could check the account status and advise me why access has been restricted. If the account qualifies for restoration, please help me regain access.
+
+Thank you for your time.
+
+Kind regards,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "06 · Policy Compliance",
+subject: "WhatsApp Account Review and Policy Compliance",
+body: `Dear WhatsApp Support Team,
+
+Please review the restriction affecting my WhatsApp account, [NUMBER].
+
+I understand the importance of WhatsApp's Terms of Service. If any activity on my account raised a concern, I would appreciate clarification so that I can address the issue appropriately.
+
+Please consider restoring access if my account is eligible.
+
+Thank you.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "07 · Reconsideration",
+subject: "Request for Reconsideration of Account Restriction",
+body: `Dear WhatsApp Support Team,
+
+I respectfully ask your team to reconsider the restriction on my account, [NUMBER].
+
+Please review the circumstances and let me know whether any additional verification or action is required from me.
+
+I appreciate a fair assessment and will cooperate with the official recovery process.
+
+Kind regards,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "08 · Access Recovery",
+subject: "Assistance Needed to Recover WhatsApp Access",
+body: `Dear WhatsApp Support Team,
+
+I am unable to access my WhatsApp account registered to [NUMBER].
+
+Could you please review its current status and explain the official steps available to recover access? If the restriction was an error, I kindly request restoration.
+
+Thank you for your assistance.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "09 · Communication",
+subject: "Appeal Regarding Loss of WhatsApp Communication",
+body: `Dear WhatsApp Support Team,
+
+The restriction on my account, [NUMBER], has interrupted my normal communications.
+
+I respectfully request a review of the account and guidance about the reason for the restriction. Please restore access if the account is eligible under your policies.
+
+Thank you for your attention.
+
+Kind regards,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "10 · Fair Assessment",
+subject: "Request for a Fair Assessment of My WhatsApp Account",
+body: `Dear WhatsApp Support Team,
+
+I am writing to request a fair assessment of my WhatsApp account associated with [NUMBER].
+
+Please check whether the restriction is appropriate and inform me of any steps needed to resolve the matter. If an error occurred, I would be grateful if access could be restored.
+
+Thank you for reviewing my request.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "11 · Account Status",
+subject: "Clarification and Review of WhatsApp Account Status",
+body: `Dear WhatsApp Support Team,
+
+Could you please clarify the current status of the WhatsApp account registered to [NUMBER]?
+
+I would appreciate a review of the restriction and instructions for any legitimate recovery steps. If the account is eligible to be reinstated, please consider restoring it.
+
+Thank you for your help.
+
+Kind regards,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "12 · Reinstatement",
+subject: "Request for Reinstatement of WhatsApp Account",
+body: `Dear WhatsApp Support Team,
+
+I respectfully request reinstatement of my WhatsApp account associated with [NUMBER], if it meets your requirements.
+
+Please review the account and let me know the reason for the restriction or any steps I should take. I am ready to cooperate with your official procedures.
+
+Thank you for your consideration.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "13 · Review of Decision",
+subject: "Request to Reconsider WhatsApp Restriction Decision",
+body: `Dear WhatsApp Support Team,
+
+I would appreciate a second review of the decision to restrict my account, [NUMBER].
+
+I may not fully understand the reason for this action, so clarification would be very helpful. Please reconsider the restriction if the account was affected incorrectly.
+
+Thank you for your time.
+
+Kind regards,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "14 · Verification Help",
+subject: "Request for Official WhatsApp Account Verification Guidance",
+body: `Dear WhatsApp Support Team,
+
+I need assistance with my restricted WhatsApp account, [NUMBER].
+
+Please advise whether any official verification or recovery steps are required. I am happy to provide appropriate information through a verified WhatsApp support channel.
+
+Thank you for your assistance.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "15 · Unexpected Ban",
+subject: "Appeal Regarding an Unexpected WhatsApp Ban",
+body: `Dear WhatsApp Support Team,
+
+My account registered to [NUMBER] has become inaccessible due to a restriction I did not expect.
+
+Please review the account and explain the reason for this action. If the restriction was applied incorrectly, I kindly ask that my account be restored.
+
+Thank you for looking into this matter.
+
+Kind regards,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "16 · Review Request",
+subject: "Formal Request for WhatsApp Account Review",
+body: `Dear WhatsApp Support Team,
+
+Please accept this formal request to review the restriction affecting my WhatsApp account, [NUMBER].
+
+I would appreciate a careful assessment of the account and clear guidance on the next steps available to me. I will follow your official instructions.
+
+Thank you for your attention.
+
+Respectfully,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "17 · Recovery Guidance",
+subject: "Request for Help With Restricted WhatsApp Account",
+body: `Dear WhatsApp Support Team,
+
+I am seeking help with my WhatsApp account, [NUMBER], which is currently restricted.
+
+Please let me know whether the account can be recovered and what steps I should take. If a review finds that the restriction was a mistake, I would be grateful for restoration.
+
+Thank you.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "18 · Second Assessment",
+subject: "Request for a Second Assessment of My WhatsApp Account",
+body: `Dear WhatsApp Support Team,
+
+I respectfully request a second assessment of my WhatsApp account associated with [NUMBER].
+
+Please review the available account information and let me know if further action is required. I hope access can be restored if the account meets your policies.
+
+Thank you for your consideration.
+
+Kind regards,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "19 · Resolution Request",
+subject: "Request to Resolve WhatsApp Account Restriction",
+body: `Dear WhatsApp Support Team,
+
+I am contacting you to seek a resolution for the restriction on my WhatsApp account, [NUMBER].
+
+Please provide the reason for the restriction and the official process for resolving it. I would appreciate restoration of access if my account is eligible.
+
+Thank you for your help.
+
+Sincerely,
+ALI
+Number: [NUMBER]`
+},
+{
+title: "20 · Final Appeal",
+subject: "Final Request for Review of WhatsApp Account Restriction",
+body: `Dear WhatsApp Support Team,
+
+I respectfully submit this appeal concerning my WhatsApp account registered to [NUMBER].
+
+I request a careful review of the restriction and clarification of any issue that needs to be addressed. If the account was restricted in error and qualifies for restoration, please consider reinstating access.
+
+I appreciate your time and the opportunity to resolve this matter through the proper process.
+
+Thank you.
+
+Yours sincerely,
+ALI
+WhatsApp number: [NUMBER]`
+}
+];
+
+const phoneInput = document.getElementById("phone");
+const subjectInput = document.getElementById("subject");
+const messageInput = document.getElementById("message");
+const buttonGrid = document.getElementById("appealButtons");
+
+function chooseAppeal(index) {
+  const number = phoneInput.value.trim();
+
+  if (!number) {
+    alert("Please enter your WhatsApp number first.");
+    phoneInput.focus();
+    return;
+  }
+
+  const appeal = appeals[index];
+  subjectInput.value = appeal.subject;
+  messageInput.value = appeal.body.replaceAll("[NUMBER]", number);
+}
+
+appeals.forEach((appeal, index) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = appeal.title;
+  button.addEventListener("click", () => chooseAppeal(index));
+  buttonGrid.appendChild(button);
+});
+
+document.getElementById("openGmail").addEventListener("click", () => {
+  const number = phoneInput.value.trim();
+  const message = messageInput.value.trim();
+  const subject = subjectInput.value.trim();
+
+  if (!number) {
+    alert("Please enter your WhatsApp number first.");
+    phoneInput.focus();
+    return;
+  }
+
+  if (!message) {
+    alert("Please select an appeal button first.");
+    return;
+  }
+
+  const url = "https://mail.google.com/mail/?view=cm&fs=1"
+    + "&to=" + encodeURIComponent(SUPPORT_EMAIL)
+    + "&su=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(message);
+
+  window.open(url, "_blank", "noopener");
+});
+
+// Live Pakistan time/date using WorldTimeAPI, with device-clock fallback.
+const timeElement = document.getElementById("time");
+const dateElement = document.getElementById("date");
+let serverOffset = null;
+
+function renderClock() {
+  const now = serverOffset === null
+    ? new Date()
+    : new Date(Date.now() + serverOffset);
+
+  timeElement.textContent = now.toLocaleTimeString("en-PK", {
+    timeZone: "Asia/Karachi",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  });
+
+  dateElement.textContent = now.toLocaleDateString("en-PK", {
+    timeZone: "Asia/Karachi",
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+}
+
+async function syncTime() {
+  try {
+    const response = await fetch(
+      "https://worldtimeapi.org/api/timezone/Asia/Karachi",
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) throw new Error("Time service unavailable");
+
+    const data = await response.json();
+    serverOffset = new Date(data.datetime).getTime() - Date.now();
+  } catch (error) {
+    serverOffset = null;
+  }
+
+  renderClock();
+}
+
+renderClock();
+setInterval(renderClock, 1000);
+syncTime();
+setInterval(syncTime, 300000);
+</script>
+</body>
+</html>
